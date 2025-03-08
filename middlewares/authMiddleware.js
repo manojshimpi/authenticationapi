@@ -11,7 +11,6 @@ export const isAuthenticated = async (req, res, next) => {
   try {
     const tokenValue = token.split(" ")[1]; // Extract token after "Bearer "
     const decoded = jwt.verify(tokenValue, process.env.JWT_SECRET);
-    console.log(decoded)
     req.user = await User.findById(decoded._id).select("-password"); // Exclude sensitive fields
     
     if (!req.user) {
